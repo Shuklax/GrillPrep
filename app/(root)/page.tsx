@@ -4,23 +4,22 @@ import Link from "next/link";
 import Image from "next/image";
 import InterviewCard from "@/components/InterviewCard";
 import {getCurrentUser} from "@/lib/actions/auth.action";
-import {getInterviewsUserById, getLatestInterviews} from "@/lib/actions/general.action";
+import {getInterviewsByUserId, getLatestInterviews} from "@/lib/actions/general.action";
 
 const Page = async () => {
     const user = await getCurrentUser()
 
     //parallel request
-    const [userInterviews, latestInterviews] = await Promise.all([
-
-        await getInterviewsUserById(user?.id),
+    const [userInterviews, allInterview] = await Promise.all([
+        await getInterviewsByUserId(user?.id!),
         await getLatestInterviews({userId: user?.id!})
     ])
     console.log(userInterviews)
     // const userInterviews = await getInterviewsUserById(user?.id!);
     // const latestInterviews = await getLatestInterviews({userId: user?.id!});
 
-    const hasPastInterviews = userInterviews?.length > 0;
-    const hasUpcomingInterviews = latestInterviews?.length > 0;
+    const hasPastInterviews = userInterviews?.length! > 0;
+    const hasUpcomingInterviews = allInterview?.length! > 0;
 
     return (
         <>
@@ -51,12 +50,20 @@ const Page = async () => {
                     {/*))}*/}
 
                     {hasPastInterviews ? (
-                        userInterviews.map((interview) => (
-                            <InterviewCard {...interview} key={interview.id}/>
-                        ))) : (
-                        <p>You haven&apos;t taken any interviews</p>
-                    )
-                    }
+                        userInterviews?.map((interview) => (
+                            <InterviewCard
+                                key={interview.id}
+                                userId={user?.id}
+                                interviewId={interview.id}
+                                role={interview.role}
+                                type={interview.type}
+                                techstack={interview.techstack}
+                                createdAt={interview.createdAt}
+                            />
+                        ))
+                    ) : (
+                        <p>You haven&apos;t taken any interviews yet</p>
+                    )}
                 </div>
 
 
@@ -67,12 +74,20 @@ const Page = async () => {
 
                 <div className="interviews-section">
                     {hasUpcomingInterviews ? (
-                        latestInterviews?.map((interview) => (
-                            <InterviewCard {...interview} key={interview.id}/>
-                        ))) : (
-                        <p>There are no new interviews available</p>
-                    )
-                    }
+                        allInterview?.map((interview) => (
+                            <InterviewCard
+                                key={interview.id}
+                                userId={user?.id}
+                                interviewId={interview.id}
+                                role={interview.role}
+                                type={interview.type}
+                                techstack={interview.techstack}
+                                createdAt={interview.createdAt}
+                            />
+                        ))
+                    ) : (
+                        <p>There are no interviews available</p>
+                    )}
                 </div>
             </section>
         </>

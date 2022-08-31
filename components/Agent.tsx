@@ -9,7 +9,7 @@ import {interviewer} from "@/constants";
 import {createFeedBack} from "@/lib/actions/general.action";
 
 enum CallStatus {
-    oINACTIVE = "INACTIVE",
+    INACTIVE = "INACTIVE",
     CONNECTING = "CONNECTING",
     ACTIVE = "ACTIVE",
     FINISHED = "FINISHED",

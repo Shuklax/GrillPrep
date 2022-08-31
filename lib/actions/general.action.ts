@@ -3,17 +3,19 @@ import {generateObject} from "ai";
 import {google} from "@ai-sdk/google";
 import {feedbackSchema} from "@/constants";
 
-export async function getInterviewsUserById(userId: string): Promise<Interview[] | null> {
+export async function getInterviewsByUserId(
+    userId: string
+): Promise<Interview[] | null> {
     const interviews = await db
-        .collection('interviews')
-        .where('userId', `==`, userId)
-        .orderBy('createdAt', 'desc')
+        .collection("interviews")
+        .where("userId", "==", userId)
+        .orderBy("createdAt", "desc")
         .get();
 
     return interviews.docs.map((doc) => ({
         id: doc.id,
-        ...doc.data()
-    })) as Interview[]
+        ...doc.data(),
+    })) as Interview[];
 }
 
 
@@ -115,7 +117,7 @@ export async function getFeedbackByInterviewId(params: {
 
     if (feedback.empty) return null
 
-    const feedbackDoc = feedback.doc[0];
+    const feedbackDoc = feedback.docs[0];
     return {
         id: feedbackDoc.id, ...feedbackDoc.data()
     } as Feedback;

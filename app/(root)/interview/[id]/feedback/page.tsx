@@ -12,7 +12,7 @@ const Feedback = async ({params}: RouteParams) => {
     const user = await getCurrentUser();
 
     const interview = await getInterviewById(id)
-    if (interview) redirect('/')
+    if (!interview) redirect('/')
 
     const feedback = await getFeedbackByInterviewId({
         interviewId: id,
@@ -23,7 +23,8 @@ const Feedback = async ({params}: RouteParams) => {
         <section className="section-feedback">
             <div className="flex flex-row justify-center">
                 <h1 className="text-4xl font-semibold">
-                    <span className="capitalize">{interview.role}</span>
+                    Feedback on the interview -{" "}
+                    <span className="capitalize">{interview.role}</span> Interview
                 </h1>
             </div>
 
