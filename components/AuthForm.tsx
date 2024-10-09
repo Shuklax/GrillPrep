@@ -8,6 +8,8 @@ import {Form,} from "@/components/ui/form"
 import Image from "next/image";
 import Link from "next/link";
 import {toast} from "sonner";
+import {useRouter} from "next/navigation";
+import ControlledInput from "@/components/ControlledInput";
 
 const authFormSchema = (type: FormType) => {
     return z.object({
@@ -18,6 +20,7 @@ const authFormSchema = (type: FormType) => {
 }
 
 const AuthForm = ({type}: { type: FormType }) => {
+    const router = useRouter();
     const formSchema = authFormSchema(type)
 
     // 1. Define your form.
@@ -34,9 +37,13 @@ const AuthForm = ({type}: { type: FormType }) => {
     function onSubmit(values: z.infer<typeof formSchema>) {
         try {
             if (type === 'sign-up') {
+                toast.success("Sign up successfully!")
                 console.log('SIGN-UP', values)
+                router.push("/sign-in")
             } else {
+                toast.success("Sign up successfully!")
                 console.log('SIGN-IN', values)
+                router.push("/");
             }
         } catch (error) {
             console.log(error)
@@ -58,9 +65,28 @@ const AuthForm = ({type}: { type: FormType }) => {
                 <h3></h3>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6 mt-4 form">
-                        {!isSignIn && <p>Name</p>}
-                        <p>Email</p>
-                        <p>Password</p>
+                        {!isSignIn && (
+                            <ControlledInput
+                                control={form.control}
+                                name="name"
+                                label="Name"
+                                placeholder="Your Name"
+                            />
+                        )}
+                        <ControlledInput
+                            control={form.control}
+                            name="email"
+                            label="Email"
+                            placeholder="Your Email Address"
+                            type="email"
+                        />
+                        <ControlledInput
+                            control={form.control}
+                            name="password"
+                            label="Password"
+                            placeholder="Your Password"
+                            type="password"
+                        />
 
                         <Button className="btn" type="submit">{isSignIn ? 'Sign In' : 'Create an account'}</Button>
                     </form>
