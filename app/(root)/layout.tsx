@@ -11,6 +11,7 @@ const RootLayout = ({children}: { children: ReactNode }) => {
                     <h2 className='text-primary-100'>GrillPrep</h2>
                 </Link>
             </nav>
+            {children}
 
         </div>
     )
