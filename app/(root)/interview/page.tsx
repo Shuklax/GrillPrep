@@ -1,12 +1,8 @@
 import Agent from "@/components/Agent";
-import {getCurrentUser, getInterviewsUserById} from "@/lib/actions/auth.action";
+import {getCurrentUser} from "@/lib/actions/auth.action";
 
 const Page = async () => {
     const user = await getCurrentUser();
-
-    const userInterviews = await getInterviewsUserById(user?.id!);
-
-    const hasPastInterviews = userInterviews?.length > 0;
 
     return (
         <>
