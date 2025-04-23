@@ -203,7 +203,6 @@ export const interviewCovers = [
     "/spotify.png",
     "/telegram.png",
     "/tiktok.png",
-    "/yahoo.png",
 ];
 
 export const dummyInterviews: Interview[] = [
