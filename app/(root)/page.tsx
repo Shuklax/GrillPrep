@@ -2,6 +2,8 @@ import React from 'react'
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
+import {dummyInterviews} from "@/constants";
+import InterviewCard from "@/components/InterviewCard";
 
 const Page = () => {
     return (
@@ -20,8 +22,30 @@ const Page = () => {
                     </Button>
                 </div>
 
-                <Image src="./robot.png" alt='robo-dude' width={400} height={400} className='max-sm:hidden'/>
+                <Image src="/public/robot.png" alt='robo-dude' width={400} height={400} className='max-sm:hidden'/>
 
+            </section>
+
+            <section className="flex flex-col gap-6 mt-8">
+                <h2>Your interviews</h2>
+
+                <div className="interviews-section">
+                    {dummyInterviews.map(() => (
+                        <InterviewCard {...interview}/>
+                    ))}
+                </div>
+
+
+            </section>
+
+            <section className="flex flex-col gap-6 mt-8">
+                <h2>Taken an interview</h2>
+
+                <div className="interviews-section">
+                    {dummyInterviews.map(() => (
+                        <InterviewCard {...interview}/>
+                    ))}
+                </div>
             </section>
         </>
     )
