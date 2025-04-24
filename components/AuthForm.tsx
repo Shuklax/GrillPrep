@@ -1,15 +1,20 @@
-"use client"
-import {zodResolver} from "@hookform/resolvers/zod"
-import {useForm} from "react-hook-form"
-import {z} from "zod"
+"use client";
 
-import {Button} from "@/components/ui/button"
-import {Form,} from "@/components/ui/form"
-import Image from "next/image";
+import {z} from "zod";
 import Link from "next/link";
+import Image from "next/image";
 import {toast} from "sonner";
+import {auth} from "@/firebase/client";
+import {useForm} from "react-hook-form";
 import {useRouter} from "next/navigation";
-import ControlledInput from "@/components/ControlledInput";
+import {zodResolver} from "@hookform/resolvers/zod";
+
+import {createUserWithEmailAndPassword,} from "firebase/auth";
+
+import {Form} from "@/components/ui/form";
+import {Button} from "@/components/ui/button";
+
+import {signUp} from "@/lib/actions/auth.action";
 
 const authFormSchema = (type: FormType) => {
     return z.object({
@@ -34,10 +39,26 @@ const AuthForm = ({type}: { type: FormType }) => {
     })
 
     // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
+    async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
             if (type === 'sign-up') {
-                toast.success("Sign up successfully!")
+                const {name, email, password} = values;
+
+                const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+
+                const result = await signUp({
+                    uid: userCredentials.user.id,
+                    name: name!,
+                    email,
+                    password,
+                });
+
+                if (!result.success) {
+                    toast.error(result?.message);
+                    return;
+                }
+
+                toast.success("account created successfully!")
                 console.log('SIGN-UP', values)
                 router.push("/sign-in")
             } else {
