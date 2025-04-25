@@ -22,7 +22,7 @@ const Page = () => {
                     </Button>
                 </div>
 
-                <Image src="/public/robot.png" alt='robo-dude' width={400} height={400} className='max-sm:hidden'/>
+                <Image src="/robot.png" alt='robo-dude' width={400} height={400} className='max-sm:hidden'/>
 
             </section>
 

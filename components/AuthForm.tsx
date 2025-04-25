@@ -4,17 +4,17 @@ import {z} from "zod";
 import Link from "next/link";
 import Image from "next/image";
 import {toast} from "sonner";
+import {Form} from "@/components/ui/form";
 import {auth} from "@/firebase/client";
 import {useForm} from "react-hook-form";
 import {useRouter} from "next/navigation";
 import {zodResolver} from "@hookform/resolvers/zod";
 
-import {createUserWithEmailAndPassword,} from "firebase/auth";
-
-import {Form} from "@/components/ui/form";
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword,} from "firebase/auth";
 import {Button} from "@/components/ui/button";
 
-import {signUp} from "@/lib/actions/auth.action";
+import {signIn, signUp} from "@/lib/actions/auth.action";
+import ControlledInput from "@/components/ControlledInput";
 
 const authFormSchema = (type: FormType) => {
     return z.object({
@@ -47,7 +47,7 @@ const AuthForm = ({type}: { type: FormType }) => {
                 const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
 
                 const result = await signUp({
-                    uid: userCredentials.user.id,
+                    uid: userCredentials.user.uid,
                     name: name!,
                     email,
                     password,
@@ -62,7 +62,23 @@ const AuthForm = ({type}: { type: FormType }) => {
                 console.log('SIGN-UP', values)
                 router.push("/sign-in")
             } else {
-                toast.success("Sign up successfully!")
+
+                const {email, password} = values;
+
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+
+                const idToken = await userCredential.user.getIdToken();
+
+                if (!idToken) {
+                    toast.error('sign in failed')
+                    return;
+                }
+
+                await signIn({
+                    email, idToken
+                })
+
+                toast.success("Sign In successful!")
                 console.log('SIGN-IN', values)
                 router.push("/");
             }
