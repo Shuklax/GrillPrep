@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c48ae45e-a04f-4208-80fc-e3eb4d91984a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/api/vapi/generate/route.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/vapi.sdk.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(root)/interview/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(root)/interview/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/Agent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Agent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +39,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "interviewCreation",
+    "git-widget-placeholder": "AgentIntegration",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -82,6 +79,7 @@
       <workItem from="1745589647498" duration="2021000" />
       <workItem from="1745599173651" duration="2087000" />
       <workItem from="1745601942773" duration="17355000" />
+      <workItem from="1745666692709" duration="1325000" />
     </task>
     <servers />
   </component>

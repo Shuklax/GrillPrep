@@ -1,5 +1,6 @@
 import Image from "next/image";
 import {cn} from "@/lib/utils";
+import {useState} from "react";
 
 enum CallStatus {
     INACTIVE = "INACTIVE",
@@ -8,14 +9,37 @@ enum CallStatus {
     FINISHED = "FINISHED",
 }
 
+interface SavedMessage {
+    role: 'user' | 'system' | 'assistant';
+    content: string;
+}
 
-const Agent = ({userName}: AgentProps) => {
-    const callStatus = CallStatus.FINISHED;
-    const isSpeaking = true;
-    const messages = [
-        'Whats your name?',
-        'my name is Allah hu akbar. Nice to meet you'
-    ];
+
+const Agent = ({userName, userId, type}: AgentProps) => {
+
+    const router = useRouter();
+    const [isSpeaking, setIsSpeaking] = useState(false);
+    const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
+    const [messages, setMessages] = useState<SavedMessage[]>([])
+
+    useEffect(() => {
+        const onCallStart = () => setCallStatus(CallStatus.ACTIVE);
+        const onCallEnd = () => setCallStatus(CallStatus.FINISHED);
+
+        const onMessage = (message: Message) => {
+            if (message.type === 'transcript' && message.transcript === 'final') {
+                const newMessage = {role: message.role, content: message.transcript}
+
+                setMessages((prev) => [...prev, newMessage]);
+            }
+        }
+
+        const onSpeechStart = () => setIsSpeaking(true);
+        const onSpeechEnd = () => setIsSpeaking(false);
+
+        const onError = (error: Error) => console.log('Error', error);
+    })
+
     const lastMessage = messages[messages.length - 1];
 
     return (
