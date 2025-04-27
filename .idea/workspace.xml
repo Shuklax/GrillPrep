@@ -8,6 +8,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/(root)/interview/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(root)/interview/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/Agent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Agent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/actions/auth.action.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/actions/auth.action.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/vapi.sdk.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/vapi.sdk.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +81,7 @@
       <workItem from="1745589647498" duration="2021000" />
       <workItem from="1745599173651" duration="2087000" />
       <workItem from="1745601942773" duration="17355000" />
-      <workItem from="1745666692709" duration="1325000" />
+      <workItem from="1745666692709" duration="10661000" />
     </task>
     <servers />
   </component>

@@ -110,8 +110,17 @@ export async function getCurrentUser(): Promise<User | null> {
     }
 }
 
-export async function isAuthenticated() {
-    const user = await getCurrentUser();
+export async function isAuthenticated()
 
-    return !!user;
+export async function getInterviewsUserById(userId: string): Promise<Interview[] | null> {
+    const interview = await db
+        .collection('interview')
+        .where('userId', '===', userId)
+        .orderBy('createdAt', 'desc')
+        .get();
+
+    return interviews.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data()
+    })) as Interview[]
 }
