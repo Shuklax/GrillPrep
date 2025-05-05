@@ -99,7 +99,10 @@ export async function createFeedBack(params: CreateFeedbackParams) {
     }
 }
 
-export async function getFeedbackByInterviewId(params: GetFeedbackByInterviewIdParams): Promise<Feedback | null> {
+export async function getFeedbackByInterviewId(params: {
+    interviewId: string;
+    userId: string | undefined
+}): Promise<Feedback | null> {
 
     const {interviewId, userId} = params;
 
